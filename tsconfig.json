@@ -1,11 +1,16 @@
 {
   "extends": "@tsconfig/node22/tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "outDir": "dist"
+  },
+
   "include": ["src/**/*"],
   "exclude": ["node_modules"],
   "ts-node": {
     "transpileOnly": true
-  },
-  "compilerOptions": {
-    "outDir": "dist"
   }
 }
