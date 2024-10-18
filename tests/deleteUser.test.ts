@@ -1,9 +1,9 @@
 import request from "supertest";
-import server from "../src/index";
+import server from "../src/startServer";
 
 describe("DELETE /api/users/:id", () => {
   it("the user is expected to be deleted", async () => {
-    const user = await request(server)
+    const user = await request(server())
       .post("/api/users")
       .send({
         username: "pidr",
@@ -11,13 +11,11 @@ describe("DELETE /api/users/:id", () => {
         hobbies: ["test"],
       });
 
-    console.log(user.body);
-
-    const response = await request(server).delete(`/api/users/${user.body.id}`);
+    const response = await request(server()).delete(`/api/users/${user.body.id}`);
     expect(response.status).toBe(204);
   });
 
   afterAll(() => {
-    server.close();
+    server().close();
   });
 });

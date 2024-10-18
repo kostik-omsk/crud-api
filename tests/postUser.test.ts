@@ -1,9 +1,9 @@
 import request from "supertest";
-import server from "../src/index";
+import server from "../src/startServer";
 
 describe("POST /api/users", () => {
   it("a response containing newly created record is expected", async () => {
-    const response = await request(server)
+    const response = await request(server())
       .post("/api/users")
       .send({
         username: "test",
@@ -22,6 +22,6 @@ describe("POST /api/users", () => {
   });
 
   afterAll(() => {
-    server.close();
+    server().close();
   });
 });
