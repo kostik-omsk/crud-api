@@ -1,24 +1,7 @@
 import "dotenv/config";
-import { createServer as createServerHttp } from "node:http";
-import { userRoutes } from "./routes/userRoutes";
-import { sendResponse } from "./utils/sendResponse";
+import startServer from "./startServer";
+const { PORT } = process.env || 4000;
 
-const { PORT } = process.env || 3000;
-
-const server = createServerHttp((req, res) => {
-  try {
-    userRoutes(req, res);
-  } catch (error) {
-    if (error instanceof Error) {
-      sendResponse(res, 500, { message: error.message });
-    } else {
-      sendResponse(res, 500, { message: "Unknown error occurred" });
-    }
-  }
+startServer().listen(PORT, () => {
+  console.log(`Server started on port ${PORT}`);
 });
-
-server.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
-
-export default server;
