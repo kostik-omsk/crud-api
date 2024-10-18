@@ -4,6 +4,7 @@
   "scripts": {
     "start:dev": "cross-env NODE_ENV=development ts-node-dev --respawn --transpile-only src/index.ts",
     "start:prod": "npm run build && cross-env NODE_ENV=production node dist/index.js",
+    "start:multi": "npm run build && cross-env NODE_ENV=production ts-node src/cluster.ts",
     "build": "tsc",
     "lint": "eslint .",
     "format": "prettier --write .",
