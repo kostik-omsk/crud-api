@@ -11,7 +11,7 @@ export default function startServer() {
       if (error instanceof Error) {
         sendResponse(res, 500, error.message);
       } else {
-        sendResponse(res, 500, "Unknown error occurred");
+        sendResponse(res, 500, "Internal Server Error");
       }
     }
   });
