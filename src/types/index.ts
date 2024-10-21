@@ -15,3 +15,9 @@ interface MessageResponse {
 }
 
 export type ResponseData = UserData | UserData[] | MessageResponse | string | null;
+
+export type WorkerMessage = {
+  type: "update";
+  action: "create" | "update" | "delete";
+  user: User;
+};

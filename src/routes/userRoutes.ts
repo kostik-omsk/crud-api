@@ -7,9 +7,15 @@ import {
   deleteUserController,
 } from "../controllers/usersController";
 import { sendResponse } from "../utils/sendResponse";
+import cluster from "cluster";
 
 export const userRoutes = (req: IncomingMessage, res: ServerResponse) => {
   const { url, method } = req;
+
+  if (!cluster.isWorker) {
+    console.log(`Request received: ${method} ${url}`);
+  }
+
   switch (method) {
     case "GET":
       if (url === "/api/users") {

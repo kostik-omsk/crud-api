@@ -49,6 +49,7 @@ export const createUserController = async (req: IncomingMessage, res: ServerResp
     }
 
     const newUser = await createUser(userData);
+
     sendResponse(res, 201, newUser);
   } catch (error) {
     console.error(error);
