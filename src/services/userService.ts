@@ -3,36 +3,53 @@ import { User, UserData } from "@/types";
 
 const users: User[] = [];
 
-const getAllUsers = () => {
-  return users;
+const getAllUsers = async (): Promise<User[]> => {
+  return new Promise((resolve) => {
+    resolve(users);
+  });
 };
 
-const getUserById = (id: string) => {
-  return users.find((user: User) => user.id === id);
+const getUserById = async (id: string): Promise<User | null> => {
+  return new Promise((resolve) => {
+    const user = users.find((user: User) => user.id === id);
+    if (!user) {
+      resolve(null);
+    } else {
+      resolve(user);
+    }
+  });
 };
 
-const createUser = (userData: UserData) => {
-  const newUser = { id: uuidv4(), ...userData };
-  users.push(newUser);
-  return newUser;
+const createUser = async (userData: UserData): Promise<User> => {
+  return new Promise((resolve) => {
+    const newUser = { id: uuidv4(), ...userData };
+    users.push(newUser);
+    resolve(newUser);
+  });
 };
 
-const updateUser = (id: string, userData: UserData) => {
-  const index = users.findIndex((user: User) => user.id === id);
-  if (index === -1) {
-    return null;
-  }
-  users[index] = { id, ...userData };
-  return users[index];
+const updateUser = async (id: string, userData: UserData): Promise<User | null> => {
+  return new Promise((resolve) => {
+    const index = users.findIndex((user: User) => user.id === id);
+    if (index === -1) {
+      resolve(null);
+    } else {
+      users[index] = { id, ...userData };
+      resolve(users[index]);
+    }
+  });
 };
 
-const deleteUser = (id: string) => {
-  const index = users.findIndex((user) => user.id === id);
-  if (index === -1) {
-    return null;
-  }
-  const [deletedUser] = users.splice(index, 1);
-  return deletedUser;
+const deleteUser = async (id: string): Promise<User | null> => {
+  return new Promise((resolve) => {
+    const index = users.findIndex((user: User) => user.id === id);
+    if (index === -1) {
+      resolve(null);
+    } else {
+      const [deletedUser] = users.splice(index, 1);
+      resolve(deletedUser);
+    }
+  });
 };
 
 export { getAllUsers, getUserById, createUser, updateUser, deleteUser };
