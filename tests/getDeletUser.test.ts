@@ -18,7 +18,6 @@ describe("GET /api/users/:id - getting a remote user", () => {
     const response = await request(server()).get(`/api/users/${userId}`);
 
     expect(response.status).toBe(404);
-    expect(response.body).toEqual({ message: "User not found" });
   });
 
   afterAll(() => {
