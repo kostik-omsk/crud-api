@@ -2,7 +2,7 @@
 
 ## Description
 
-This project is a CRUD API that uses a file as a users.json to store user records. The API allows you to perform operations to create, read, update, and delete users.
+This project is a CRUD API that using in-memory database underneath. The API allows you to perform operations to create, read, update, and delete users.
 
 ## Installation and run
 
