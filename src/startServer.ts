@@ -9,9 +9,9 @@ export default function startServer() {
       userRoutes(req, res);
     } catch (error) {
       if (error instanceof Error) {
-        sendResponse(res, 500, { message: error.message });
+        sendResponse(res, 500, error.message);
       } else {
-        sendResponse(res, 500, { message: "Unknown error occurred" });
+        sendResponse(res, 500, "Unknown error occurred");
       }
     }
   });
