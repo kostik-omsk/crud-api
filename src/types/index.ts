@@ -14,4 +14,4 @@ interface MessageResponse {
   message: string;
 }
 
-export type ResponseData = UserData | MessageResponse | string | null;
+export type ResponseData = UserData | UserData[] | MessageResponse | string | null;

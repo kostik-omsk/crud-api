@@ -3,7 +3,7 @@ import { getUserById, getAllUsers, createUser, updateUser, deleteUser } from "..
 import { validateUserData, validateUuid } from "../utils/validators";
 import { sendResponse } from "../utils/sendResponse";
 
-const getRequestBody = async (req: IncomingMessage): Promise<string> => {
+const getRequestBody = (req: IncomingMessage): Promise<string> => {
   return new Promise((resolve, reject) => {
     let body = "";
     req.on("data", (chunk) => (body += chunk));
@@ -12,9 +12,9 @@ const getRequestBody = async (req: IncomingMessage): Promise<string> => {
   });
 };
 
-export const getUsers = async (req: IncomingMessage, res: ServerResponse) => {
+export const getUsers = (req: IncomingMessage, res: ServerResponse) => {
   try {
-    const users = await getAllUsers();
+    const users = getAllUsers();
     sendResponse(res, 200, users);
   } catch (error) {
     console.error(error);
@@ -22,13 +22,13 @@ export const getUsers = async (req: IncomingMessage, res: ServerResponse) => {
   }
 };
 
-export const getUser = async (req: IncomingMessage, res: ServerResponse, userId: string) => {
+export const getUser = (req: IncomingMessage, res: ServerResponse, userId: string) => {
   if (!validateUuid(userId)) {
     return sendResponse(res, 400, { message: "Invalid User ID" });
   }
 
   try {
-    const user = await getUserById(userId);
+    const user = getUserById(userId);
     if (!user) {
       return sendResponse(res, 404, { message: "User not found" });
     }
@@ -48,7 +48,7 @@ export const createUserController = async (req: IncomingMessage, res: ServerResp
       return sendResponse(res, 400, { message: "Invalid user data" });
     }
 
-    const newUser = await createUser(userData);
+    const newUser = createUser(userData);
     sendResponse(res, 201, newUser);
   } catch (error) {
     console.error(error);
@@ -69,7 +69,7 @@ export const updateUserController = async (req: IncomingMessage, res: ServerResp
       return sendResponse(res, 400, { message: "Invalid user data" });
     }
 
-    const updatedUser = await updateUser(userId, userData);
+    const updatedUser = updateUser(userId, userData);
     if (!updatedUser) {
       return sendResponse(res, 404, { message: "User not found" });
     }
@@ -81,13 +81,13 @@ export const updateUserController = async (req: IncomingMessage, res: ServerResp
   }
 };
 
-export const deleteUserController = async (req: IncomingMessage, res: ServerResponse, userId: string) => {
+export const deleteUserController = (req: IncomingMessage, res: ServerResponse, userId: string) => {
   if (!validateUuid(userId)) {
     return sendResponse(res, 400, { message: "Invalid User ID" });
   }
 
   try {
-    const deletedUser = await deleteUser(userId);
+    const deletedUser = deleteUser(userId);
     if (!deletedUser) {
       return sendResponse(res, 404, { message: "User not found" });
     }
